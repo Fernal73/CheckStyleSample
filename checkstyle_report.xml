@@ -2,7 +2,7 @@
 <checkstyle version="10.9.3">
   <file name="/root/CheckStyleSample/src/com/github/sevntu/checkstyle/Sample.java">
 
-    <error line="6" column="17" severity="error"
+    <error line="5" column="5" severity="error"
     message="Method declares to return Boolean and returns null."
     source="com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBooleanCheck" />
   </file>

@@ -30,7 +30,8 @@ default="checkstyle" basedir=".">
     </fileset>
     <pathconvert property="sources" refid="javasrcs" pathsep="" />
     <java fork="true"
-    classname="com.puppycrawl.tools.checkstyle.Main">
+    classname="com.puppycrawl.tools.checkstyle.Main"
+    output="suppressions-xpath.xml" error="gen.error">
       <classpath>
         <path>
           <fileset dir="lib" includes="*.jar" />
@@ -38,8 +39,6 @@ default="checkstyle" basedir=".">
       </classpath>
       <arg line="-c" />
       <arg line="checkstyle.xml" />
-      <arg line="-o" />
-      <arg line="suppressions-xpath.xml" />
       <arg line="-g" />
       <arg line="${sources}" />
     </java>
