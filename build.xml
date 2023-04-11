@@ -25,6 +25,7 @@ default="checkstyle" basedir=".">
     </checkstyle>
   </target>
   <target name="gen-suppressions" depends="resolve">
+    <delete file="suppressions-xpath.xml" />
     <fileset dir="${basedir}" id="javasrcs">
       <include name="**/*.java" />
     </fileset>
