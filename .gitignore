@@ -1,3 +1,5 @@
 generror
 **/*.wsout
 **/lib/**
+*xpath.xml
+*report.xml

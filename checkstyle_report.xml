@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<checkstyle version="10.9.3">
-  <file name="/root/CheckStyleSample/src/com/github/sevntu/checkstyle/Sample.java">
-
-    <error line="5" column="5" severity="error"
-    message="Method declares to return Boolean and returns null."
-    source="com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBooleanCheck" />
-  </file>
-</checkstyle>
