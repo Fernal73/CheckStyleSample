@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="ant-sample"
+default="checkstyle" basedir=".">
+  <!-- Run this sample with ant checkstyle and you will recieve checkstyle_report.xml
+         file with one violation of ReturnNullInsteadOfBoolean check -->
+  <!-- ##########################################################################
+         ####################### target: checkstyle ###############################
+         ########################################################################## -->
+  <target name="checkstyle"
+  description="Generates a report of code convention violations."
+  depends="init-checkstyle">
+    <!-- See https://checkstyle.org/anttask.html
+             for full options of using checkstyle with ant-->
+    <checkstyle config="checkstyle.xml"
+    failureProperty="checkstyle.failure" failOnViolation="false">
+      <formatter type="xml" tofile="checkstyle_report.xml" />
+      <fileset dir="src" includes="**/*.java" />
+    </checkstyle>
+    <!-- secondary example if your classpath already includes checkstyle
+             and you want to include another jar with custom checks that is
+             in a custom location -->
+    <checkstyle config="checkstyle.xml" failOnViolation="false">
+      <formatter type="xml" tofile="checkstyle_report.xml" />
+      <fileset dir="src" includes="**/*.java" />
+    </checkstyle>
+  </target>
+  <target name="gen-suppressions" depends="resolve">
+    <fileset dir="${basedir}" id="javasrcs">
+      <include name="**/*.java" />
+    </fileset>
+    <pathconvert property="sources" refid="javasrcs" pathsep="" />
+    <java fork="true"
+    classname="com.puppycrawl.tools.checkstyle.Main">
+      <classpath>
+        <path>
+          <fileset dir="lib" includes="*.jar" />
+        </path>
+      </classpath>
+      <arg line="-c" />
+      <arg line="checkstyle.xml" />
+      <arg line="-o" />
+      <arg line="suppressions-xpath.xml" />
+      <arg line="-g" />
+      <arg line="${sources}" />
+    </java>
+  </target>
+  <target name="init-checkstyle" depends="resolve">
+    <!-- checkstyle itself all dependecies and Sevntu custom checks
+             are retrieved by Ivy (see ivy.xml) into lib folder
+             and will be accessible to checkstyle-->
+    <path id="execution.lib.path">
+      <fileset dir="lib" includes="*.jar" />
+    </path>
+    <!-- loading ant task -->
+    <taskdef name="checkstyle"
+    classname="com.puppycrawl.tools.checkstyle.ant.CheckstyleAntTask"
+    classpathref="execution.lib.path" />
+  </target>
+  <!-- ##########################################################################
+         ####################### target: resolve ##################################
+         ########################################################################## -->
+  <target name="resolve"
+  description="retrieve dependencies with ivy" depends="init-ivy">
+    <ivy:settings file="ivysettings.xml" />
+    <ivy:retrieve />
+  </target>
+  <!-- ##########################################################################
+         ####### Downloading and setup Ivy for managing dependencies ##############
+         ##########################################################################-->
+  <property name="ivy.install.version" value="2.5.0" />
+  <!-- You may place ivy.jar into other folder if you want to keep folder lib clean-->
+  <property name="ivy.jar.dir" value="lib" />
+  <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar" />
+  <target name="download-ivy" unless="offline">
+    <mkdir dir="${ivy.jar.dir}" />
+    <!-- download Ivy from web site
+             so that it can be used even without any special installation -->
+    <get src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
+    dest="${ivy.jar.file}" usetimestamp="true" />
+  </target>
+  <target name="init-ivy" depends="download-ivy">
+    <!-- try to load ivy here from ivy home, in case the user has not already dropped
+             it into ant's lib dir (note that the latter copy will always take precedence).
+             We will not fail as long as local lib dir exists (it may be empty) and
+             ivy is in at least one of ant's lib dir or the local lib dir. -->
+    <path id="ivy.lib.path">
+      <fileset dir="${ivy.jar.dir}" includes="*.jar" />
+    </path>
+    <taskdef resource="org/apache/ivy/ant/antlib.xml"
+    uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path" />
+  </target>
+</project>

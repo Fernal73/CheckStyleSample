@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE
+suppressions PUBLIC "-//Checkstyle//DTD SuppressionXpathFilter Experimental Configuration 1.2//EN"
+"https://checkstyle.org/dtds/suppressions_1_2_xpath_experimental.dtd">
+<suppressions>
+  <suppress-xpath files="Sample.java"
+  checks="com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBooleanCheck"
+  query="/COMPILATION_UNIT/CLASS_DEF[./IDENT[@text='Sample']]/OBJBLOCK/METHOD_DEF[./IDENT[@text='shouldBeWarning']]/SLIST/LITERAL_RETURN" />
+</suppressions>
