@@ -92,7 +92,8 @@ default="main" basedir=".">
   <target name="makepom">
     <ivy:makepom ivyfile="ivy.xml" pomfile="pom.xml" />
   </target>
-  <target name="main" depends="checkstyle,makepom">
+  <target name="main"
+  depends="gen-suppressions,checkstyle,makepom">
     <description>Main target</description>
   </target>
 </project>
