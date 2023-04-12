@@ -1,4 +1,4 @@
-generror
+gen.error
 **/*.wsout
 **/lib/**
 *xpath.xml
