@@ -2,10 +2,12 @@
   <info organisation="com.github.sevntu-checkstyle" module="sample"
   revision="1.0.0" />
   <dependencies>
+    <dependency org="net.sf.saxon" name="Saxon-HE" rev="12.1" />
     <dependency org="com.puppycrawl.tools" name="checkstyle"
     rev="10.9.3" />
     <dependency org="com.github.sevntu-checkstyle"
     name="sevntu-checks" rev="1.44.1" />
+    <!-- https://mvnrepository.com/artifact/net.sf.saxon/Saxon-HE -->
     <exclude org="org.jacoco" />
     <exclude org="net.bytebuddy" />
     <exclude org="org.slf4j" />
